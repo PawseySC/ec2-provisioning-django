@@ -1,0 +1,60 @@
+<!-- aws_ec2/templates/aws_ec2/registration_success.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Successful</title>
+    <style>
+        /* Copy the styles from the register.html, then add or modify: */
+        .success-message {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .credentials {
+            background-color: #e9ecef;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .credentials h2 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .credentials ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .credentials li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registration Successful</h1>
+        <div class="success-message">
+            Your booking has been successfully registered!
+        </div>
+        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Booking Time:</strong> {{ booking_time }}</p>
+        <div class="credentials">
+            <h2>Generated User Credentials</h2>
+            <ul>
+                {% for credential in credentials %}
+                    <li><strong>Username:</strong> {{ credential.username }}, <strong>Password:</strong> {{ credential.password }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <p>Please keep this information secure for your records.</p>
+    </div>
+</body>
+</html>

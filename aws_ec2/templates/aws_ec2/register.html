@@ -1,0 +1,155 @@
+<!-- aws_ec2/templates/aws_ec2/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Booking</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --background-color: #ecf0f1;
+            --text-color: #2c3e50;
+            --error-color: #e74c3c;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="datetime-local"],
+        input[type="number"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .errors {
+            background-color: #fce4e4;
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .errors ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Register for a Booking</h1>
+        
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="errors">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% if form.non_field_errors %}
+                <div class="errors">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+    <script>
+        // Add some basic form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            var inputs = this.querySelectorAll('input[required]');
+            var valid = true;
+            inputs.forEach(function(input) {
+                if (!input.value) {
+                    valid = false;
+                    input.style.borderColor = 'var(--error-color)';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+            if (!valid) {
+                e.preventDefault();
+                alert('Please fill in all required fields.');
+            }
+        });
+    </script>
+</body>
+</html>

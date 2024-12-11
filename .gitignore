@@ -1,0 +1,53 @@
+*.profile
+*.python_history
+*.bash_history
+*.ssh
+*.bash_logout
+*.sudo_as_admin_successful
+*.bashrc
+*.vim
+*.cache
+*.viminfo
+*.dotnet
+*.vimrc
+*.git
+*.vscode-server-insiders
+*.gitconfig
+*.wget-hsts
+*.lesshst
+django-env/
+*.log
+*.pyc
+*.env
+hpc_sandpit/
+*.viminfo
+
+# Django-specific
+db.sqlite3
+/staticfiles/
+/media/
+*.mo
+/migrations/
+
+# AWS and cloud
+.aws/
+*.pem
+*.key
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Python virtual environments
+venv/
+env/
+
+# Pytest cache
+.pytest_cache/
+
+# IDE/Editor
+.idea/
+*.iml
+
+# Docker
+*.dockerfile
+.env.docker

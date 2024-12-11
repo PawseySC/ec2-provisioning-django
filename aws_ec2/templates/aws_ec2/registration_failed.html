@@ -1,0 +1,14 @@
+<!-- aws_ec2/templates/aws_ec2/registration_failed.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Failed</title>
+</head>
+<body>
+    <h1>Registration Failed</h1>
+    <p>{{ error_message }}</p> <!-- This line will display the specific error message -->
+    <a href="{% url 'booking:register' %}">Try Again</a> <!-- Link to retry registration -->
+</body>
+</html>
+
