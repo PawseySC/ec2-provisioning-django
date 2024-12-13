@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
+
 # Copy project files
 COPY . /app/
 
@@ -34,8 +35,12 @@ COPY . /app/
 #     touch /app/logs/ec2_creation.log && \
 #     chown -R ${USER_ID}:${GROUP_ID} /app
 
+# RUN python manage.py migrate
+
 # Switch to the created user
 USER django
+
+
 
 # Command to run the application
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

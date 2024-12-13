@@ -17,11 +17,14 @@ services:
     depends_on:
       - db
     environment:
-      - DB_HOST=host.docker.internal
+      # - DB_HOST=db
+      # - DB_HOST=host.docker.internal
+      - DB_HOST=172.25.36.112
       # - EC2_CREATION_LOG=/app/logs/ec2_creation.log
     extra_hosts:
       - "host.docker.internal:host-gateway"
     network_mode: host
+    # network_mode: bridge
 
   db:
     image: postgres:16-alpine
@@ -35,6 +38,7 @@ services:
     ports:
       - "5433:5432"
     network_mode: host
+    # network_mode: bridge
 
 volumes:
   postgres_data:
