@@ -1,0 +1,40 @@
+services:
+  web:
+    build: 
+      context: .
+      args:
+        - USER_ID=${UID:-1000}
+        - GROUP_ID=${GID:-1000}
+    container_name: django-booking-app
+    volumes:
+      - .:/app
+      - ./static:/app/static
+      - ./logs:/app/logs
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=host.docker.internal
+      # - EC2_CREATION_LOG=/app/logs/ec2_creation.log
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    network_mode: host
+
+  db:
+    image: postgres:16-alpine
+    container_name: booking-postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=booking
+      - POSTGRES_USER=pawsey
+      - POSTGRES_PASSWORD=pawsey
+    ports:
+      - "5433:5432"
+    network_mode: host
+
+volumes:
+  postgres_data:

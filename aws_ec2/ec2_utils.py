@@ -126,6 +126,12 @@ set -e
 sudo apt-get update
 sudo apt-get install -y python3-pip
 
+# Create and configure the getlesson script
+sudo echo "#!/bin/bash\n 
+git clone https://github.com/PawseySC/quantum-computing-hackathon" >> /usr/bin/getlesson
+sudo chmod a+rx /usr/bin/getlesson
+
+
 # Set up Pawsey admin user
 {pawsey_setup}
 
@@ -186,7 +192,7 @@ echo "Installation, PAM authentication setup, and user creation completed!"
                 ImageId='ami-0892a9c01908fafd1',
                 MinCount=1,
                 MaxCount=1,
-                InstanceType='t3.medium', #t2.large m5.large t2.micro t3.medium 
+                InstanceType='t3.medium', #t2.large m5.large t2.micro t3.medium t3.micro 
                 KeyName='aws_00',
                 UserData=user_data_script,
                 SecurityGroupIds=[security_group_id],
