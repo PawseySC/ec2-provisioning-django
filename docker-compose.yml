@@ -1,5 +1,20 @@
 services:
+  db:
+    image: postgres:16-alpine
+    container_name: booking-postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=booking
+      - POSTGRES_USER=pawsey
+      - POSTGRES_PASSWORD=pawsey
+    ports:
+      - "5433:5432"
+    networks:
+      - app_network 
+
   web:
+    image: pawsey/ec2-provisioning:1.0  # Specify the built image here
     build: 
       context: .
       args:
@@ -17,28 +32,13 @@ services:
     depends_on:
       - db
     environment:
-      # - DB_HOST=db
-      # - DB_HOST=host.docker.internal
-      - DB_HOST=172.25.36.112
-      # - EC2_CREATION_LOG=/app/logs/ec2_creation.log
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    network_mode: host
-    # network_mode: bridge
+      - DB_HOST=booking-postgres
+    networks:
+      - app_network
 
-  db:
-    image: postgres:16-alpine
-    container_name: booking-postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=booking
-      - POSTGRES_USER=pawsey
-      - POSTGRES_PASSWORD=pawsey
-    ports:
-      - "5433:5432"
-    network_mode: host
-    # network_mode: bridge
+networks:
+  app_network:
+    # external: true  # Use the existing network
 
 volumes:
   postgres_data:
