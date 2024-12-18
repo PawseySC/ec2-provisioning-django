@@ -14,7 +14,7 @@ services:
       - app_network 
 
   web:
-    image: pawsey/ec2-provisioning:1.0  # Specify the built image here
+    image: pawsey/ec2-provisioning:1.0.1  # Specify the built image here
     build: 
       context: .
       args:

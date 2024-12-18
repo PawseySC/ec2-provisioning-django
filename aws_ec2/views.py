@@ -42,8 +42,8 @@ def register(request):
                 
                 credentials = []
                 for _ in range(number_of_users):
-                    username = secrets.token_hex(4)
-                    password = secrets.token_hex(8)
+                    username = secrets.token_hex(8)
+                    password = secrets.token_hex(16)
                     credentials.append(UserCredential(booking=booking, username=username, password=password))
                 UserCredential.objects.bulk_create(credentials)
                 logger.info(f"Created {len(credentials)} user credentials for booking {booking.id}")

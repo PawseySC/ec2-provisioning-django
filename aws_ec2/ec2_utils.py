@@ -192,7 +192,7 @@ echo "Installation, PAM authentication setup, and user creation completed!"
                 ImageId='ami-0892a9c01908fafd1',
                 MinCount=1,
                 MaxCount=1,
-                InstanceType='t3.medium', #t2.large m5.large t2.micro t3.medium t3.micro 
+                InstanceType='t3.micro', #t2.large m5.large t2.micro t3.medium t3.micro 
                 KeyName='aws_00',
                 UserData=user_data_script,
                 SecurityGroupIds=[security_group_id],
