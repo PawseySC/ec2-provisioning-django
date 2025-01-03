@@ -1,3 +1,4 @@
+# refactored into ec2_utils folder
 import boto3
 from botocore.exceptions import ClientError
 import math

@@ -11,20 +11,20 @@ services:
     ports:
       - "5433:5432"
     networks:
-      - app_network 
+      - app_network
 
   web:
-    image: pawsey/ec2-provisioning:1.0.1  # Specify the built image here
-    build: 
+    image: pawsey/ec2-provisioning:1.0.2
+    build:
       context: .
       args:
         - USER_ID=${UID:-1000}
         - GROUP_ID=${GID:-1000}
     container_name: django-booking-app
     volumes:
-      - .:/app
-      - ./static:/app/static
-      - ./logs:/app/logs
+      - .:/app:delegated
+      # - ./static:/app/static
+      # - ./logs:/app/logs
     ports:
       - "8001:8000"
     env_file:
@@ -38,7 +38,6 @@ services:
 
 networks:
   app_network:
-    # external: true  # Use the existing network
 
 volumes:
   postgres_data:
