@@ -101,3 +101,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+#celery settings
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Replace with your broker URL
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # Replace with your result backend
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = config('TIME_ZONE')

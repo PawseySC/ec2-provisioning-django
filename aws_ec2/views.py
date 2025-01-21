@@ -1,4 +1,4 @@
-# Views.py
+# aws_ec2/views.py
 from django.shortcuts import render
 from django.db import transaction
 from .models import Booking
@@ -30,17 +30,13 @@ def register(request):
                 credentials = BookingService.create_user_credentials(booking, number_of_users)
                 EmailService.send_initial_confirmation(email, booking_time, credentials)
                 
-                if not booking.ec2_instances_created:
-                    instance_info = BookingService.create_instances(booking, credentials)
-                    
-                    if instance_info:
-                        EmailService.send_instance_details(email, instance_info)
-                    else:
-                        logger.error(f"Failed to create EC2 instances for booking {booking.id}")
-                        form.add_error(None, "Failed to create EC2 instances. Please try again later.")
-                        return render(request, 'aws_ec2/register.html', {'form': form})
-                
-                logger.info(f"Registration process completed for booking {booking.id}")
+                # Schedule instance creation instead of immediate creation
+                if BookingService.schedule_instance_creation(booking):
+                    logger.info(f"Successfully scheduled instance creation for booking {booking.id}")
+                else:
+                    logger.error(f"Failed to schedule instance creation for booking {booking.id}")
+                    form.add_error(None, "Failed to schedule instance creation. Please try again later.")
+                    return render(request, 'aws_ec2/register.html', {'form': form})
                 
                 return render(request, 'aws_ec2/registration_success.html', {
                     'email': email,
