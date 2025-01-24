@@ -1,5 +1,4 @@
 # aws_ec2/services/booking_service.py
-
 import secrets
 from typing import List, Tuple, Optional
 from ..models import Booking, UserCredential, EC2Instance
@@ -66,29 +65,33 @@ class BookingService:
             logger.error(f"Error creating EC2 instances: {str(e)}", exc_info=True)
             return None
 
-@staticmethod
-def schedule_instance_creation(booking: Booking):
-    """
-    Schedules the instance creation task for the booking time
-    """
-    try:
-        from ..tasks import create_scheduled_instances
-        
-        # Calculate delay in seconds from now until booking time
-        now = timezone.now()
-        delay = (booking.booking_time - now).total_seconds()
-        
-        if delay > 0:
-            create_scheduled_instances.apply_async(
-                args=[booking.id],
-                eta=booking.booking_time
-            )
-            logger.info(f"Scheduled instance creation for booking {booking.id} at {booking.booking_time}")
-            return True
-        else:
-            logger.error(f"Invalid delay for booking {booking.id}: {delay} seconds")
-            return False
+    @staticmethod
+    def schedule_instance_creation(booking: Booking):
+        """
+        Schedules the instance creation task for the booking time
+        """
+        try:
+            from ..tasks import create_scheduled_instances
             
-    except Exception as e:
-        logger.error(f"Error scheduling instance creation: {str(e)}", exc_info=True)
-        return False
+            # Calculate delay in seconds from now until booking time
+            now = timezone.localtime(timezone.now(), booking.booking_time.tzinfo)
+            delay = (booking.booking_time - now).total_seconds()
+            
+            if delay > 0:
+                create_scheduled_instances.apply_async(
+                    args=[booking.id],
+                    eta=booking.booking_time
+                )
+                logger.info(f"Scheduled instance creation for booking {booking.id} at {booking.booking_time}")
+                logger.info(f"Booking time: {booking.booking_time}")
+                logger.info(f"Current time: {now}")
+                logger.info(f"Booking time timezone: {booking.booking_time.tzinfo}")
+                logger.info(f"Delay: {delay}")
+                return True
+            else:
+                logger.error(f"Invalid delay for booking {booking.id}: {delay} seconds")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Error scheduling instance creation: {str(e)}", exc_info=True)
+            return False

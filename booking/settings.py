@@ -1,4 +1,4 @@
-# Settings.py
+# booking/settings.py
 from pathlib import Path
 from decouple import config
 

@@ -1,0 +1,1 @@
+default_app_config = 'aws_ec2.apps.AwsEc2Config'

@@ -37,3 +37,7 @@ def create_scheduled_instances(booking_id: int):
             
     except Exception as e:
         logger.error(f"Error processing scheduled booking {booking_id}: {str(e)}", exc_info=True)
+
+# @shared_task
+# def test_task(x, y):
+#     return x + y
