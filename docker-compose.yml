@@ -47,42 +47,6 @@ services:
     networks:
       - app_network
 
-  celery_worker:
-    image: pawsey/ec2-provisioning:1.0.2
-    container_name: celery-worker
-    command: celery -A booking worker -l info
-    # volumes:
-    #   - .:/app:delegated
-    depends_on:
-      - web
-      - redis
-    env_file:
-      - .env
-    environment:
-      - DB_HOST=booking-postgres
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-    networks:
-      - app_network
-
-  # celery_beat:
-  #   image: pawsey/ec2-provisioning:1.0.2
-  #   container_name: celery-beat
-  #   command: celery -A booking beat -l info
-  #   # volumes:
-  #   #   - .:/app:delegated
-  #   depends_on:
-  #     - web
-  #     - redis
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     - DB_HOST=booking-postgres
-  #     - CELERY_BROKER_URL=redis://redis:6379/0
-  #     - CELERY_RESULT_BACKEND=redis://redis:6379/0
-  #   networks:
-  #     - app_network
-
 networks:
   app_network:
 

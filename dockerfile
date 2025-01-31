@@ -1,6 +1,8 @@
 FROM python:3.12-slim
+
 ARG USER_ID=1000
 ARG GROUP_ID=1000
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
@@ -16,12 +18,13 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     supervisor \
-    redis-tools \ 
+    redis-tools \
     htop \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Set permissions for the app directory
-RUN mkdir -p /app/static /app/logs /app/celery && \
+RUN mkdir -p /app/static /app/logs && \
     chown -R django:django /app
 
 # Copy and install requirements first for better caching
@@ -33,11 +36,6 @@ COPY --chown=django:django . /app/
 COPY --chown=django:django entrypoint.sh /entrypoint.sh
 COPY --chown=django:django supervisord.conf /etc/supervisord.conf
 RUN chmod +x /entrypoint.sh
-
-# Create directory for Celery beat schedule
-RUN mkdir -p /app/celery && \
-    touch /app/celery/celerybeat-schedule && \
-    chown -R django:django /app/celery
 
 # Add health check for the web service
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
