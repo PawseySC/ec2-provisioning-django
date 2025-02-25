@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
     redis-tools \
     htop \
     curl \
+    nginx \
     && rm -rf /var/lib/apt/lists/*
 
 # Set permissions for the app directory
@@ -35,6 +36,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY --chown=django:django . /app/
 COPY --chown=django:django entrypoint.sh /entrypoint.sh
 COPY --chown=django:django supervisord.conf /etc/supervisord.conf
+COPY gunicorn.conf.py /app/
+COPY nginx.conf /etc/nginx/nginx.conf
 RUN chmod +x /entrypoint.sh
 
 # Add health check for the web service
