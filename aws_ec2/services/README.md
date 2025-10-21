@@ -2,7 +2,7 @@
 
 This directory contains the service layer components that encapsulate the application's business logic.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Services](#services)
@@ -23,7 +23,7 @@ By using services, we keep the views and models clean and focused on their prima
 
 ## Services
 
-### 📄 `booking_service.py`
+### `booking_service.py`
 
 Manages the booking process and user credential generation.
 
@@ -52,7 +52,7 @@ instances = BookingService.create_instances(booking, credentials)
 BookingService.schedule_instance_creation(booking)
 ```
 
-### 📄 `email_service.py`
+### `email_service.py`
 
 Handles email composition and delivery to users.
 
@@ -86,7 +86,7 @@ instance_info = [
 EmailService.send_instance_details(booking.email, instance_info)
 ```
 
-### 📄 `logging_service.py`
+### `logging_service.py`
 
 Provides consistent logging throughout the application.
 

@@ -7,7 +7,7 @@
 
 A comprehensive Django-based web application for booking and managing AWS EC2 instances with JupyterHub automation for educational workshops and hackathons.
 
-## 🚀 Features
+## Features
 
 - **User-friendly Booking Interface**: Simple form for users to schedule EC2 resources
 - **Automated EC2 Provisioning**: On-demand creation of JupyterHub instances
@@ -17,20 +17,19 @@ A comprehensive Django-based web application for booking and managing AWS EC2 in
 - **AWS Integration**: Complete EC2 lifecycle management
 - **Security**: Proper security group configuration and credential handling
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [System Architecture](#-system-architecture)
 - [Installation](#-installation)
 - [Configuration](#-configuration)
 - [Usage](#-usage)
 - [Development](#-development)
-- [Testing](#-testing)
 - [Deployment](#-deployment)
 - [Docker](#-docker)
 - [Contributing](#-contributing)
 - [License](#-license)
 
-## 🏗 System Architecture
+## System Architecture
 
 The system is built using a modular architecture with the following components:
 
@@ -64,7 +63,7 @@ The system is built using a modular architecture with the following components:
 - **AWS EC2 Integration**: Management of EC2 instances and security groups
 - **Email Service**: Communication with users about bookings and resources
 
-## 🔧 Installation
+## Installation
 
 ### Prerequisites
 
@@ -114,7 +113,7 @@ The system is built using a modular architecture with the following components:
    celery -A booking worker -l info
    ```
 
-## ⚙️ Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -177,7 +176,7 @@ The AWS user associated with the access key needs the following permissions:
 - `lambda:AddPermission`
 - `lambda:InvokeFunction`
 
-## 🖥 Usage
+## Usage
 
 ### Booking an EC2 Instance
 
@@ -195,7 +194,7 @@ Access the Django admin interface at `http://localhost:8000/admin/` to:
 - Check instance statuses
 - Generate reports
 
-## 🧑‍💻 Development
+## Development
 
 ### Project Structure
 
@@ -216,50 +215,7 @@ ec2-booking-system/
 └── requirements.txt         # Python dependencies
 ```
 
-### Adding New Features
-
-1. Create a feature branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. Make changes and run tests:
-   ```bash
-   python manage.py test
-   ```
-
-3. Submit a pull request
-
-## 🧪 Testing
-
-The project includes a comprehensive test suite covering all major components:
-
-- **Service Layer Tests**: Booking, email, and logging services
-- **EC2 Utilities Tests**: Instance management, security, user data generation
-- **Django Component Tests**: Models, forms, views, and tasks
-- **AWS Lambda Function Tests**: Instance stopping and termination
-
-### Running Tests
-
-To run the entire test suite:
-
-```bash
-python manage.py test aws_ec2
-```
-
-For pytest with coverage report:
-
-```bash
-pytest --cov=aws_ec2
-```
-
-To run specific tests:
-
-```bash
-python manage.py test aws_ec2.tests.test_booking_service
-```
-
-## 🚢 Deployment
+## Deployment
 
 ### Production Environment Setup
 
@@ -295,7 +251,7 @@ For production deployment, adjust the following settings:
    stdout_logfile=/var/log/ec2booking.log
    ```
 
-## 🐳 Docker
+## Docker
 
 The application can be run using Docker and Docker Compose for easier deployment.
 
@@ -316,7 +272,7 @@ This will start the following services:
 - Web interface: `http://localhost:80/booking/register/`
 - Admin interface: `http://localhost:80/admin/`
 
-## 👥 Contributing
+## Contributing
 
 Contributions are welcome! Please follow these steps:
 
@@ -330,6 +286,6 @@ Contributions are welcome! Please follow these steps:
 
 Please make sure your code passes all tests and follows the project's coding style.
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.

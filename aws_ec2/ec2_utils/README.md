@@ -2,7 +2,7 @@
 
 This directory contains the core functionality for AWS EC2 instance provisioning and management.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Components](#components)
@@ -23,7 +23,7 @@ The EC2 utilities provide a modular system for creating, configuring, and managi
 
 ## Components
 
-### 📄 `config.py`
+### `config.py`
 
 Centralized configuration system with environment variable support. Uses a hierarchical structure with these components:
 
@@ -43,7 +43,7 @@ security_group_name = config.security_group.NAME
 jupyter_admin = config.jupyter.ADMIN_USERNAME
 ```
 
-### 📄 `instance_manager.py`
+### `instance_manager.py`
 
 Handles the lifecycle of EC2 instances including:
 
@@ -56,7 +56,7 @@ Handles the lifecycle of EC2 instances including:
 - `wait_for_instances()`: Waits for instances to be ready
 - `schedule_instance_shutdown()`: Sets up automatic shutdown
 
-### 📄 `security.py`
+### `security.py`
 
 Manages security groups and network rules:
 
@@ -69,7 +69,7 @@ Manages security groups and network rules:
 - `authorize_ingress_rule()`: Sets up network access rules
 - `setup_jupyter_security_rules()`: Configures all required JupyterHub rules
 
-### 📄 `user_data.py`
+### `user_data.py`
 
 Generates EC2 user data scripts for instance initialization:
 
@@ -83,7 +83,7 @@ Generates EC2 user data scripts for instance initialization:
 - `generate_pawsey_admin_setup()`: Admin user configuration
 - `generate_user_setup()`: Regular user account creation
 
-### 📄 `main.py`
+### `main.py`
 
 Orchestrates the EC2 provisioning process:
 
@@ -94,7 +94,7 @@ Orchestrates the EC2 provisioning process:
 **Key Methods:**
 - `create_ec2_instances()`: Main method for creating instances with JupyterHub
 
-### 📄 `logging_config.py`
+### `logging_config.py`
 
 Configures logging for the EC2 utilities:
 
