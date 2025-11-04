@@ -215,6 +215,38 @@ ec2-booking-system/
 └── requirements.txt         # Python dependencies
 ```
 
+### Configuration Files
+#### entrypoint.sh
+The Docker container's entry point script that orchestrates the startup sequence. It waits for PostgreSQL to become available, applies database migrations, creates necessary log directories, and then launches supervisord to manage the application services.
+gunicorn.conf.py
+Configuration for the Gunicorn WSGI server that runs the Django application. It defines:
+
+- Server binding (port 8000)
+- Worker processes
+- Timeout and keepalive settings
+- Request limits to prevent memory leaks
+- Logging configuration for application, access, and error logs
+
+#### nginx.conf
+Nginx web server configuration that acts as a reverse proxy. It handles:
+
+- Incoming HTTP requests on port 80
+- Proxying requests to the Gunicorn/Django backend
+- Serving static files directly (CSS, JS, images)
+- Serving media files (user uploads)
+- Header forwarding for proper client IP and protocol detection
+
+#### supervisord.conf
+Supervisor process manager configuration that keeps services running. It manages:
+
+- Gunicorn: The Django application server
+- Celery: Background task worker for asynchronous job processing
+
+Both services auto-restart on failure and log their output for monitoring and debugging.
+
+This setup provides a production-ready architecture with Nginx handling external requests, Gunicorn serving the Django application, and Celery processing background tasks, all orchestrated through Supervisor.
+
+
 ## Deployment
 
 ### Production Environment Setup
